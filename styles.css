@@ -1,0 +1,177 @@
+/* ===== Variables (paleta del logo) ===== */
+:root {
+  --fondo: #07041a;
+  --cian: #22d3ee;
+  --magenta: #d946ef;
+  --oro: #fde68a;
+  --texto: #ece9ff;
+  --suave: #9a94c9;
+  --panel: #120a33;
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; }
+body {
+  min-height: 100dvh;
+  color: var(--texto);
+  background:
+    radial-gradient(ellipse at 15% 0, #2a1160 0, transparent 55%),
+    radial-gradient(ellipse at 90% 100%, #0e3557 0, transparent 50%),
+    var(--fondo);
+}
+main { max-width: 980px; margin: 0 auto; padding: 20px 16px 32px; }
+h2 { font-size: clamp(1.6rem, 5vw, 2.4rem); letter-spacing: .02em; }
+:focus-visible { outline: 3px solid var(--oro); outline-offset: 3px; }
+
+/* ===== Pantallas ===== */
+.pantalla { display: none; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+.pantalla.activa { display: flex; }
+.logo { width: min(320px, 80vw); filter: drop-shadow(0 0 28px #d946ef55); }
+.racha { color: var(--suave); min-height: 1.4em; }
+.fila { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+/* ===== Botones ===== */
+.btn {
+  font: inherit; font-weight: 700; color: var(--texto); cursor: pointer;
+  padding: 12px 22px; border-radius: 999px;
+  background: transparent; border: 2px solid var(--cian);
+  box-shadow: 0 0 14px #22d3ee44, inset 0 0 10px #22d3ee22;
+  transition: transform .15s, box-shadow .15s, background .15s;
+}
+.btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 0 22px #22d3ee88, inset 0 0 14px #22d3ee33; }
+.btn:active:not(:disabled) { transform: scale(.97); }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.btn.principal { background: linear-gradient(90deg, var(--cian), var(--magenta)); border-color: transparent; color: #07041a; }
+.btn.especial { border-color: var(--magenta); box-shadow: 0 0 14px #d946ef55, inset 0 0 10px #d946ef22; }
+
+/* ===== Selección ===== */
+.personajes { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; width: 100%; }
+.tarjeta {
+  --c: #fff; font: inherit; color: inherit; cursor: pointer; text-align: left;
+  padding: 16px; border-radius: 18px; background: var(--panel);
+  border: 2px solid color-mix(in srgb, var(--c) 45%, transparent);
+  display: grid; gap: 6px; transition: transform .15s, box-shadow .2s;
+}
+.tarjeta:hover { transform: translateY(-4px); box-shadow: 0 0 26px color-mix(in srgb, var(--c) 55%, transparent); }
+.tarjeta .figura { width: 92px; color: var(--c); filter: drop-shadow(0 0 10px var(--c)); justify-self: center; }
+.tarjeta h3 { color: var(--c); font-size: 1.3rem; }
+.tarjeta small { color: var(--suave); }
+.tarjeta dl { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font-size: .9rem; }
+.tarjeta dd { font-weight: 700; margin: 0; }
+
+/* ===== Batalla ===== */
+.marcadores { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+.panel { display: grid; gap: 6px; padding: 10px 12px; border-radius: 14px; background: var(--panel); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); }
+.panel-cab { display: flex; justify-content: space-between; color: var(--c); }
+.barra { position: relative; height: 18px; border-radius: 9px; background: #ffffff14; overflow: hidden; }
+.barra i { position: absolute; inset: 0 auto 0 0; width: 100%; border-radius: 9px; transition: width .6s cubic-bezier(.3, .8, .3, 1); }
+.barra.vida i { background: linear-gradient(90deg, #f43f5e, #fb923c); }
+.barra.aura i { background: linear-gradient(90deg, var(--cian), var(--magenta)); }
+.barra b { position: relative; font-size: .72rem; line-height: 18px; display: block; text-align: center; text-shadow: 0 1px 2px #000; }
+
+.escena {
+  position: relative; width: 100%; height: clamp(250px, 44vh, 360px);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 clamp(10px, 8vw, 90px) 9%;
+  border-radius: 20px; overflow: hidden; isolation: isolate;
+  background:
+    radial-gradient(circle at 14% 78%, color-mix(in srgb, var(--c1, #22d3ee) 55%, transparent), transparent 46%),
+    radial-gradient(circle at 86% 78%, color-mix(in srgb, var(--c2, #d946ef) 55%, transparent), transparent 46%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100' preserveAspectRatio='none'%3E%3Cpath d='M0 100V58L48 24 92 56 142 14 200 60 262 28 322 66 372 34 400 52V100Z' fill='%2312083a'/%3E%3C/svg%3E") bottom / 100% 62% no-repeat,
+    linear-gradient(#0b0630, #26105a 65%, #57206b);
+}
+/* Suelo rocoso con grietas */
+.escena::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 24%; z-index: 0;
+  background: repeating-linear-gradient(100deg, transparent 0 46px, #ffffff12 46px 47px), linear-gradient(#1c0f45, #090318);
+  border-top: 2px solid #fde68a55;
+}
+/* Chispas de energía que suben por el campo */
+.escena::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; opacity: .8; animation: chispas 5s linear infinite;
+  background-image:
+    radial-gradient(2px 2px at 20% 80%, #fff, transparent), radial-gradient(3px 3px at 60% 90%, var(--oro), transparent),
+    radial-gradient(2px 2px at 85% 75%, #fff, transparent), radial-gradient(3px 3px at 38% 95%, var(--c1, #22d3ee), transparent),
+    radial-gradient(3px 3px at 74% 100%, var(--c2, #d946ef), transparent);
+}
+/* Anillo de aura en el suelo, bajo cada luchador */
+.luchador::before {
+  content: ""; position: absolute; left: -25%; right: -25%; bottom: -10px; height: 24px; border-radius: 50%;
+  background: radial-gradient(closest-side, var(--c), transparent); filter: blur(3px); opacity: .75;
+  animation: pulso 2.2s ease-in-out infinite;
+}
+@keyframes chispas { from { transform: translateY(8%); opacity: .9; } to { transform: translateY(-30%); opacity: 0; } }
+.luchador { --dir: 1; --n: 1; position: relative; width: clamp(96px, 21vw, 140px); color: var(--c); z-index: 1; }
+#luchador-cpu { --dir: -1; }
+#luchador-cpu .figura svg { transform: scaleX(-1); }
+.figura svg { display: block; width: 100%; position: relative; filter: drop-shadow(0 0 8px var(--c)); }
+.aura {
+  position: absolute; inset: -30% -40% -5%;
+  background: radial-gradient(closest-side, var(--c), transparent 72%);
+  filter: blur(14px); opacity: calc(.3 + var(--n) * .1);
+  transform-origin: 50% 80%; animation: pulso 2.2s ease-in-out infinite;
+}
+.luchador.defendiendo .figura svg { filter: drop-shadow(0 0 16px #fff) drop-shadow(0 0 8px var(--c)); }
+.luchador.ataca { animation: embestida .55s ease-in-out; z-index: 2; }
+.luchador.dano { animation: golpe .5s; }
+.luchador.destello .aura { animation: destello .6s; }
+
+.chispa {
+  position: absolute; left: 50%; bottom: 40%; width: 110px; height: 110px; margin-left: -55px; opacity: 0;
+  background: radial-gradient(circle, #fff 0, var(--oro) 25%, var(--magenta) 50%, transparent 70%);
+  border-radius: 50%; pointer-events: none;
+}
+.chispa.activa { animation: chispa .5s ease-out; }
+.numero { position: absolute; bottom: 60%; font-size: 1.8rem; font-weight: 800; color: #fff; text-shadow: 0 0 10px var(--oro); animation: subir .9s forwards; pointer-events: none; z-index: 3; }
+.numero.critico { color: var(--oro); font-size: 2.3rem; }
+
+.aviso { min-height: 1.4em; color: var(--oro); }
+.acciones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; }
+.registro { list-style: none; padding: 0; width: 100%; display: grid; gap: 4px; font-size: .9rem; color: var(--suave); text-align: left; }
+.registro li:first-child { color: var(--texto); }
+
+/* ===== Resultado ===== */
+.stats { list-style: none; padding: 0; display: grid; gap: 8px; min-width: min(320px, 90vw); }
+.stats li { display: flex; justify-content: space-between; gap: 24px; padding: 10px 16px; border-radius: 12px; background: var(--panel); }
+
+/* ===== Ayuda ===== */
+dialog { margin: auto; max-width: min(460px, 92vw); padding: 24px; border-radius: 18px; border: 2px solid var(--magenta); background: var(--panel); color: var(--texto); }
+dialog::backdrop { background: #07041acc; }
+dialog h3, dialog p, dialog ul { margin-bottom: 12px; }
+dialog ul { padding-left: 20px; }
+
+/* ===== Animaciones ===== */
+@keyframes pulso { 0%, 100% { transform: scale(calc(1 + var(--n) * .06)); } 50% { transform: scale(calc(1.12 + var(--n) * .06)); } }
+@keyframes embestida { 40% { transform: translateX(calc(var(--dir) * 70px)) scale(1.08); } }
+@keyframes golpe { 0%, 100% { transform: none; filter: none; } 20% { transform: translateX(calc(var(--dir) * -14px)); filter: brightness(2.5); } 45% { transform: translateX(calc(var(--dir) * 8px)); } 70% { transform: translateX(calc(var(--dir) * -5px)); } }
+@keyframes destello { 50% { opacity: 1; transform: scale(1.5); } }
+@keyframes chispa { 0% { opacity: 1; transform: scale(.2); } 100% { opacity: 0; transform: scale(2.2); } }
+@keyframes subir { to { transform: translateY(-60px); opacity: 0; } }
+
+/* ===== Responsive y accesibilidad ===== */
+@media (max-width: 560px) {
+  .acciones { grid-template-columns: 1fr 1fr; }
+  .marcadores { gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+.figura svg .o{stroke:#07041a;stroke-width:1.5;stroke-linejoin:round}
+
+/* ===== Efectos de ataques ===== */
+.acciones.ataques { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.btn.especial { font-size: .9rem; }
+.fx { position: absolute; pointer-events: none; z-index: 4; }
+.fx.orbe { width: 64px; height: 64px; border-radius: 50%; }
+.fx.rayo { height: 46px; border-radius: 23px; box-shadow: 0 0 26px #fff; }
+.fx.flash { background: #fff; z-index: 6; }
+.fx.boom { width: 90px; height: 90px; border-radius: 50%; background: radial-gradient(circle, #fff 0, #fde68a 25%, #ff6b4a 55%, transparent 72%); }
+.fx.onda { width: 120px; height: 120px; border-radius: 50%; border: 6px solid #fff; }
+.fx.sombra { width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, #000 55%, #7e22ce 75%, transparent 76%); box-shadow: 0 0 30px #d946ef; }
+.fx.nota { font-size: 1.6rem; font-weight: 800; text-shadow: 0 0 8px currentColor; }
+.escena.temblor { animation: temblor .9s; }
+.luchador.baila .figura { animation: baile 1.6s ease-in-out; }
+.luchador.imagenes .figura svg { animation: imagenes .9s; }
+@keyframes temblor { 0%, 100% { transform: none; } 15% { transform: translate(-8px, 5px); } 30% { transform: translate(7px, -6px); } 45% { transform: translate(-6px, -4px); } 60% { transform: translate(6px, 5px); } 80% { transform: translate(-3px, 2px); } }
+@keyframes baile { 0%, 100% { transform: none; } 12% { transform: translateY(-16px) rotate(-10deg); } 25% { transform: rotate(10deg); } 37% { transform: translateY(-16px) rotate(-10deg) scale(1.08); } 55% { transform: rotate(360deg); } 78% { transform: translateY(-12px) rotate(8deg); } }
+@keyframes imagenes { 0%, 100% { filter: drop-shadow(0 0 8px var(--c)); } 40% { filter: drop-shadow(-38px 0 0 color-mix(in srgb, var(--c) 60%, transparent)) drop-shadow(38px 0 0 color-mix(in srgb, var(--c) 60%, transparent)); } 70% { opacity: .6; } }

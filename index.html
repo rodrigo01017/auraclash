@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AuraClash</title>
+  <link rel="icon" href="aura-clash-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <!-- 1. Inicio -->
+    <section id="inicio" class="pantalla activa">
+      <img class="logo" src="aura-clash-logo.svg" alt="AuraClash">
+      <p id="racha-texto" class="racha"></p>
+      <div class="fila">
+        <button class="btn principal" id="btn-jugar">Jugar</button>
+        <button class="btn" id="btn-ayuda">Cómo se juega</button>
+      </div>
+    </section>
+
+    <!-- 2. Selección de luchador -->
+    <section id="seleccion" class="pantalla">
+      <h2>Elige tu luchador</h2>
+      <div id="lista-personajes" class="personajes"></div>
+      <button class="btn" data-ir="inicio">Volver</button>
+    </section>
+
+    <!-- 3. Batalla -->
+    <section id="batalla" class="pantalla">
+      <div id="marcadores" class="marcadores"></div>
+      <div id="escena" class="escena">
+        <div id="luchador-jugador" class="luchador"><div class="aura"></div><div class="figura"></div></div>
+        <div id="chispa" class="chispa"></div>
+        <div id="luchador-cpu" class="luchador"><div class="aura"></div><div class="figura"></div></div>
+      </div>
+      <p id="aviso" class="aviso" aria-live="polite"></p>
+      <div class="acciones">
+        <button class="btn" data-accion="atacar">Atacar</button>
+        <button class="btn" data-accion="cargar">Cargar aura</button>
+        <button class="btn" data-accion="defender">Defender</button>
+      </div>
+      <div id="ataques" class="acciones ataques"></div>
+      <ol id="registro" class="registro" aria-live="polite"></ol>
+    </section>
+
+    <!-- 4. Resultado -->
+    <section id="resultado" class="pantalla">
+      <h2 id="res-titulo"></h2>
+      <ul id="res-stats" class="stats"></ul>
+      <p id="res-racha" class="racha"></p>
+      <div class="fila">
+        <button class="btn principal" id="btn-revancha">Revancha</button>
+        <button class="btn" id="btn-menu">Menú</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="ayuda">
+    <h3>Cómo se juega</h3>
+    <p>Reduce la vida del rival a 0. Cada turno eliges una acción:</p>
+    <ul>
+      <li><b>Atacar:</b> daño básico.</li>
+      <li><b>Cargar aura:</b> recuperas mucha energía.</li>
+      <li><b>Defender:</b> el próximo golpe te hace mucho menos daño.</li>
+      <li><b>Técnicas:</b> cada luchador tiene tres, con su propia animación. Gastan aura: esferas, ondas, palmas, explosiones, bailes que hipnotizan e imágenes residuales que esquivan.</li>
+    </ul>
+    <p>Cada dos turnos tu aura sube de nivel y tus golpes ganan fuerza. Fuego vence a hielo, hielo a rayo y rayo a fuego. La sombra no tiene ventajas ni debilidades.</p>
+    <form method="dialog"><button class="btn principal">Entendido</button></form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
